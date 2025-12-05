@@ -1,0 +1,1346 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impacta Júnior - Orc'estra Gamificação</title>
+    <link rel="icon" type="image/png" href="Simbolo Institucional - Icon.png">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&family=Poppins:wght@400;600;700&family=Unbounded:wght@700&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2EB600;
+            --primary-aux: #3FCC10;
+            --black: #003D0D;
+            --black-aux: #01571E;
+            --white: #FFFBDC;
+            --white-pure: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--black);
+            color: var(--white);
+            overflow-x: hidden;
+            line-height: 1.6;
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            width: 100%;
+            overflow: visible;
+        }
+
+        /* LOGO HEADER */
+        .header-logo {
+            position: fixed;
+            top: 1.5rem;
+            left: 1.5rem;
+            width: 80px;
+            height: auto;
+            z-index: 1000;
+            opacity: 0.9;
+            transition: all 0.3s ease;
+            filter: brightness(0);
+        }
+
+        .header-logo:hover {
+            opacity: 1;
+            transform: scale(1.05);
+            filter: brightness(0.5) drop-shadow(0 2px 5px rgba(46, 182, 0, 0.1));
+        }
+
+        .header-logo-link {
+            text-decoration: none;
+            display: fixed;
+            top: 1.5rem;
+            left: 1.5rem;
+            z-index: 1000;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--black) 0%, var(--black-aux) 100%);
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            transform: translateY(0);
+            transition: transform 0.3s ease-out;
+        }
+
+        .impacta-badge {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: rgba(46, 182, 0, 0.2);
+            border: 2px solid var(--primary);
+            border-radius: 50px;
+            font-family: 'Ubuntu', sans-serif;
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeInDown 1s ease-out 0.3s forwards;
+        }
+
+        .institucional-logo {
+            width: 120px;
+            height: 120px;
+            margin-top: -2rem;
+            opacity: 0;
+            animation: fadeInDown 1s ease-out 0.1s forwards;
+            /* filter: drop-shadow(0 4px 8px rgba(255, 255, 255, 0.1)); */
+            filter: brightness(0.75);
+        }
+
+        .era-uma-vez {
+            font-family: 'Ubuntu', sans-serif;
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            color: var(--primary);
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.6s forwards;
+        }
+
+        h1 {
+            font-family: 'Unbounded', cursive;
+            font-size: clamp(2rem, 6vw, 4rem);
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 2rem;
+            letter-spacing: -0.02em;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.9s forwards;
+        }
+
+        .hero-subtitle {
+            font-family: 'Poppins', sans-serif;
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
+            color: rgba(255, 251, 220, 0.9);
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            line-height: 1.8;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 1.2s forwards;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 1.5s forwards, bounce 2s ease-in-out 2.5s infinite;
+            cursor: pointer;
+            font-size: 2rem;
+            z-index: 5;
+            color: var(--primary);
+        }
+
+        /* BACKGROUND DECORATIONS */
+        .bg-decoration {
+            position: absolute;
+            opacity: 0.08;
+            pointer-events: none;
+        }
+
+        .rope-1,
+        .rope-2 {
+            position: absolute;
+            width: 3px;
+            height: 120%;
+            background: var(--primary);
+            opacity: 0.1;
+        }
+
+        .rope-1 {
+            top: -10%;
+            left: 10%;
+            transform: rotate(-5deg);
+        }
+
+        .rope-2 {
+            top: -10%;
+            right: 10%;
+            transform: rotate(5deg);
+        }
+
+        /* SECTION STYLING */
+        section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 0;
+            position: relative;
+            scroll-snap-align: start;
+        }
+
+        .section-content {
+            opacity: 1;
+            transform: translateY(0);
+            width: 100%;
+        }
+
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s ease-out;
+        }
+
+        .fade-in-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title {
+            font-family: 'Unbounded', cursive;
+            font-weight: 700;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            color: var(--primary);
+            text-align: center;
+            margin-top: -2rem;
+            margin-bottom: 2rem;
+        }
+
+        h2 {
+            font-family: 'Ubuntu', sans-serif;
+            font-weight: 700;
+        }
+
+        h3 {
+            font-family: 'Ubuntu', sans-serif;
+            font-weight: 600;
+        }
+
+        h4 {
+            font-family: 'Ubuntu', sans-serif;
+            font-weight: 500;
+        }
+
+        p,
+        li {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* QUEM SOMOS */
+        .quem-somos {
+            background: linear-gradient(180deg, var(--black-aux) 0%, var(--black) 100%);
+        }
+
+        .logo-container {
+            text-align: center;
+            margin-top: -1rem;
+            margin-bottom: 2rem;
+        }
+
+        .logo-title {
+            font-family: 'Ubuntu', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .logo-subtitle {
+            font-family: 'Ubuntu', sans-serif;
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            color: var(--white);
+        }
+
+        .missao-box {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem;
+            background: rgba(46, 182, 0, 0.05);
+            border-radius: 20px;
+            border-left: 5px solid var(--primary);
+            text-align: center;
+        }
+
+        .missao-box p {
+            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .missao-highlight {
+            font-size: clamp(1.3rem, 3vw, 1.8rem);
+            color: var(--primary);
+            font-family: 'Ubuntu', sans-serif;
+            font-weight: 600;
+        }
+
+        /* PROBLEMAS SECTION */
+        .problemas {
+            background: var(--black);
+        }
+
+        .problems-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .problem-card {
+            padding: 2.5rem;
+            background: rgba(255, 0, 0, 0.05);
+            border-radius: 20px;
+            border: 2px solid rgba(255, 100, 100, 0.3);
+            transition: all 0.4s ease;
+        }
+
+        .problem-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(255, 100, 100, 0.6);
+            box-shadow: 0 15px 40px rgba(255, 100, 100, 0.2);
+        }
+
+        .problem-card h3 {
+            font-family: 'Ubuntu', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #ff6b6b;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+        }
+
+        .problem-card p {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: rgba(255, 251, 220, 0.9);
+        }
+
+        /* CONSEQUÊNCIAS */
+        .consequencias {
+            background: linear-gradient(180deg, var(--black) 0%, var(--black-aux) 100%);
+        }
+
+        .intro-text {
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            font-size: 1.3rem;
+            max-width: 900px;
+            margin: 0 auto 3rem;
+            line-height: 1.8;
+        }
+
+        .consequencias-list {
+            max-width: 800px;
+            margin: 0 auto;
+            list-style: none;
+        }
+
+        .consequencias-list li {
+            font-family: 'Poppins', sans-serif;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            background: rgba(255, 0, 0, 0.08);
+            border-left: 4px solid #ff6b6b;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .consequencias-list li:hover {
+            transform: translateX(10px);
+            background: rgba(255, 0, 0, 0.12);
+        }
+
+        /* SOLUÇÃO */
+        .solucao {
+            background: linear-gradient(135deg, var(--black-aux) 0%, var(--primary) 100%);
+            text-align: center;
+        }
+
+        .solucao-text {
+            font-family: 'Poppins', sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            font-size: clamp(1.3rem, 3vw, 2rem);
+            line-height: 1.8;
+            padding: 2rem;
+        }
+
+        /* INICIATIVAS */
+        .iniciativas {
+            background: var(--black);
+            min-height: auto;
+            padding: 5rem 0;
+        }
+
+        .iniciativa-group {
+            margin: 3rem 0;
+        }
+
+        .iniciativa-header {
+            text-align: center;
+            margin-top: -4rem;
+            margin-bottom: 2rem;
+        }
+
+        .iniciativa-header h3 {
+            font-family: 'Ubuntu', sans-serif;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .iniciativas-cards {
+            margin-top: -1rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .iniciativa-card {
+            padding: 2rem;
+            background: rgba(46, 182, 0, 0.05);
+            border-radius: 20px;
+            border: 2px solid var(--primary);
+            transition: all 0.4s ease;
+        }
+
+        .iniciativa-card:hover {
+            transform: translateY(-10px);
+            background: rgba(46, 182, 0, 0.1);
+            box-shadow: 0 15px 40px rgba(46, 182, 0, 0.3);
+        }
+
+        .iniciativa-card h4 {
+            font-family: 'Ubuntu', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 500;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .iniciativa-card ul {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .iniciativa-card ul li {
+            font-family: 'Poppins', sans-serif;
+            padding: 0.5rem 0;
+            padding-left: 2rem;
+            position: relative;
+            font-size: 0.95rem;
+        }
+
+        .iniciativa-card ul li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .kpis {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 2px solid rgba(46, 182, 0, 0.3);
+        }
+
+        .kpis h5 {
+            font-family: 'Ubuntu', sans-serif;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+        }
+
+        .kpi-item {
+            font-family: 'Poppins', sans-serif;
+            padding: 0.6rem;
+            background: rgba(46, 182, 0, 0.1);
+            border-radius: 10px;
+            margin: 0.4rem 0;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        /* RESULTADOS */
+        .resultados {
+            background: linear-gradient(180deg, var(--black-aux) 0%, var(--black) 100%);
+        }
+
+        .resultados-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .resultado-card {
+            padding: 2.5rem;
+            background: rgba(46, 182, 0, 0.08);
+            border-radius: 20px;
+            border: 2px solid var(--primary);
+            text-align: center;
+            transition: all 0.4s ease;
+        }
+
+        .resultado-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(46, 182, 0, 0.3);
+        }
+
+        .resultado-card h4 {
+            font-family: 'Ubuntu', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .resultado-card p {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        /* IMPACTO FINAL */
+        .impacto-final {
+            background: var(--black);
+            color: var(--white);
+            text-align: center;
+            height: 100vh;
+            min-height: 100vh;
+        }
+
+        .impacto-final h2 {
+            font-family: 'Unbounded', cursive;
+            font-weight: 700;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 2rem;
+        }
+
+        .impacto-card {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .impacto-text {
+            font-family: 'Poppins', sans-serif;
+            font-size: clamp(1.3rem, 3vw, 1.8rem);
+            line-height: 2;
+            margin-bottom: 2rem;
+        }
+
+        .destaque {
+            color: var(--white-pure);
+            font-weight: 700;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+            padding: 0.2rem 0.8rem;
+            border-radius: 10px;
+        }
+
+        .impacto-benefits {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .benefit-icon {
+            font-size: 1.8rem;
+            flex-shrink: 0;
+            color: var(--white-pure);
+            font-weight: bold;
+        }
+
+        .benefit-text {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+
+
+        /* FINAL CTA */
+        .final-cta {
+            background: var(--black);
+            text-align: center;
+            height: 100vh;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .final-cta h2 {
+            font-family: 'Unbounded', cursive;
+            font-weight: 700;
+            font-size: clamp(2rem, 5vw, 3rem);
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .tagline {
+            font-family: 'Ubuntu', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .orc-cheer {
+            font-family: 'Unbounded', cursive;
+            font-weight: 700;
+            font-size: clamp(2rem, 6vw, 4rem);
+            margin: 2rem 0;
+            color: var(--primary);
+        }
+
+        .quote {
+            font-family: 'Poppins', sans-serif;
+            max-width: 800px;
+            margin: 3rem auto;
+            padding: 2rem;
+            font-size: 1.3rem;
+            line-height: 1.8;
+            border-left: 5px solid var(--primary);
+            background: rgba(46, 182, 0, 0.05);
+            border-radius: 10px;
+        }
+
+        /* ANIMATIONS */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateX(-50%) translateY(0);
+            }
+
+            50% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+        }
+
+        /* CARROSSEL RESULTADOS */
+        .resultados-wrapper {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .resultados-carousel {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .carousel-button {
+            background: var(--primary);
+            border: none;
+            color: var(--black);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+            z-index: 5;
+            margin: -5rem;
+        }
+
+        .carousel-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 25px rgba(46, 182, 0, 0.4);
+        }
+
+        .carousel-button:active {
+            transform: scale(0.95);
+        }
+
+        .carousel-container {
+            flex: 1;
+            overflow: hidden;
+            min-height: 300px;
+        }
+
+        .resultado-card-carousel {
+            padding: 2.5rem;
+            background: rgba(46, 182, 0, 0.08);
+            border-radius: 20px;
+            border: 2px solid var(--primary);
+            text-align: center;
+            transition: opacity 0.3s ease-in-out;
+            min-height: 280px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            opacity: 0;
+            position: absolute;
+            width: 100%;
+            left: 0;
+            top: 0;
+        }
+
+        .resultado-card-carousel.active {
+            opacity: 1;
+            position: absolute;
+            z-index: 2;
+        }
+
+        .resultado-card-carousel.prev {
+            opacity: 0;
+            transform: translateX(-100px) scale(0.9);
+            z-index: 0;
+        }
+
+        .resultado-card-carousel h4 {
+            font-family: 'Ubuntu', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .resultado-card-carousel p {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 2rem;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(46, 182, 0, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            background: var(--primary);
+            transform: scale(1.3);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            body {
+                scroll-snap-type: none;
+            }
+
+            section {
+                height: auto;
+                min-height: 100vh;
+                scroll-snap-align: none;
+            }
+
+            .problems-grid,
+            .iniciativas-cards,
+            .resultados-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .iniciativa-card {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Progress bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: var(--primary);
+            z-index: 9999;
+            transition: width 0.1s ease;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="progress-bar"></div>
+    <a href="#" class="header-logo-link">
+        <img src="Logomarca Institucional.png" alt="Logomarca" class="header-logo">
+    </a>
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="bg-decoration rope-1"></div>
+        <div class="bg-decoration rope-2"></div>
+
+        <div class="hero-content">
+            <img src="Simbolo Institucional.png" alt="Símbolo Institucional" class="institucional-logo">
+            <br>
+            <div class="impacta-badge">Impacta Júnior - Dezembro 2025</div>
+            <p class="era-uma-vez">Era uma vez...</p>
+            <h1>Uma Empresa de Impacto</h1>
+            <p class="hero-subtitle">
+                Que tinha como missão ressignificar a vida das pessoas e tinham a crença que a vida pode ser produtiva e
+                prazerosa.
+            </p>
+        </div>
+        <div class="scroll-indicator"
+            onclick="document.querySelector('.quem-somos').scrollIntoView({behavior: 'smooth'})">↓</div>
+    </section>
+
+    <!-- QUEM SOMOS -->
+    <section class="quem-somos">
+        <div class="container">
+            <div class="section-content fade-in-section">
+                <div class="logo-container">
+                    <h2 class="logo-title">Orc'estra Gamificação</h2>
+                </div>
+
+                <div class="missao-box">
+                    <p class="missao-highlight">
+                        Prazer, nós somos a Orc'estra Gamificação
+                    </p>
+                    <p>
+                        Eles acreditavam que o seu propósito é criar experiências, empoderar pessoas e mudar a forma de
+                        enxergar problemas, potencializando, assim, o bem-estar na sociedade.
+                    </p>
+                    <p class="missao-highlight" style="margin-top: 2rem;">
+                        Por meio de soluções Gamificadas.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROBLEMAS -->
+    <section class="problemas">
+        <div class="container">
+            <div class="section-content fade-in-section">
+                <h2 class="section-title" style="color: #ff6b6b;">Os Desafios Encontrados</h2>
+
+                <div class="problems-grid">
+                    <div class="problem-card">
+                        <h3>Cultura Forte × Clima Organizacional</h3>
+                        <p>
+                            Sempre fomos vistos como referência em cultura, sempre presentes e animados. Porém
+                            internamente o clima organizacional não refletia esse legado.
+                        </p>
+                    </div>
+
+                    <div class="problem-card">
+                        <h3>Retenção Baixa de Membros</h3>
+                        <p>
+                            Com um clima instável, se tornou muito difícil reter os membros, ocasionando numa alta taxa
+                            de evasão.
+                        </p>
+                    </div>
+
+                    <div class="problem-card">
+                        <h3>Aprendizado Organizacional Ineficiente</h3>
+                        <p>
+                            Com a evasão de membros perdemos muito conhecimento técnico e processos.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONSEQUÊNCIAS INTRO -->
+    <section class="consequencias">
+        <div class="container">
+            <div class="section-content fade-in-section">
+                <h2 class="section-title" style="color: #ff6b6b;">As Consequências em 2025</h2>
+                <p class="intro-text">
+                    Com essas dificuldades em Clima Organizacional, Retenção de Talentos e Aprendizado Organizacional,
+                    tivemos efeitos perceptíveis:
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONSEQUÊNCIAS LISTA -->
+    <section class="consequencias">
+        <div class="container">
+            <div class="section-content fade-in-section">
+                <ul class="consequencias-list">
+                    <li>Reformulação de muitos processos base</li>
+                    <li>Venda de apenas 1 contrato</li>
+                    <li>Não atingimento das metas</li>
+                    <li>Grande dificuldade de executar as soluções</li>
+                    <li>Poucos membros para executar processos</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOLUÇÃO -->
+    <section class="solucao">
+        <div class="container">
+            <div class="section-content fade-in-section">
+                <h2 class="section-title" style="color: var(--black);">A Virada</h2>
+                <p class="solucao-text">
+                    Encontramos aqui, no Impacta Júnior, uma forma de solucionar esses problemas que inibem o impacto da
+                    nossa missão, de ressignificar a vida das pessoas por meio da Gamificação.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- INICIATIVAS TITULO -->
+    <section class="iniciativas-1">
+        <div class="container">
+            <div class="section-content fade-in-section">
+                <h2 class="section-title">Nossas Iniciativas</h2>
+            </div>
+        </div>
+    </section>
+
+    <!-- CLIMA ORGANIZACIONAL -->
+    <section class="iniciativas">
+        <div class="container">
+            <div class="section-content fade-in-section">
+                <div class="iniciativa-header">
+                    <h3>Para Clima Organizacional</h3>
+                </div>
+                <div class="iniciativas-cards">
+                    <div class="iniciativa-card">
+                        <h4>Jornadas de Time</h4>
+                        <ul>
+                            <li>Aplicar pesquisa de clima organizacional periodicamente</li>
+                            <li>Coletar os pontos de melhora em cada diretoria</li>
+                            <li>Guardião (membro de Operações) e Diretor elaboram iniciativas de correção</li>
+                            <li>Aplicação das iniciativas criadas</li>
+                            <li>Nova pesquisa de clima, repetindo o processo</li>
+                        </ul>
+                        <div class="kpis">
+                            <h5>KPI's:</h5>
+                            <div class="kpi-item">4 de média por pergunta da pesquisa de clima</div>
+                            <div class="kpi-item">90% de adesão à pesquisa de clima</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RETENÇÃO DE TALENTOS -->
+    <section class="iniciativas">
+        <div class="container">
+            <div class="section-content fade-in-section">
+                <div class="iniciativa-header">
+                    <h3>Para Retenção de Talentos</h3>
+                </div>
+                <div class="iniciativas-cards">
+                    <div class="iniciativa-card">
+                        <h4>Gestão de Pessoas Presente</h4>
+                        <ul>
+                            <li>1on1's com todos os membros a cada 3 meses</li>
+                            <li>Diretoria de Operações + Diretoria Executiva operacionalizando</li>
+                            <li>Acompanhamento sistemático do desenvolvimento dos membros ao longo do tempo</li>
+                        </ul>
+                        <div class="kpis">
+                            <h5>KPI's:</h5>
+                            <div class="kpi-item">75% de permanência maior ou igual a 12 meses</div>
+                            <div class="kpi-item">80% de aprovações alinhadas à cultura no PR</div>
+                        </div>
+                    </div>
+                    <div class="iniciativa-card">
+                        <h4>Onboarding Cultural</h4>
+                        <ul>
+                            <li>Trazer elementos da cultura da Orc'estra e do MEJ durante o Processo Recrutador</li>
+                            <li>Fazer com que os candidatos se sintam parte da empresa ainda na etapa de seleção</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- APRENDIZADO ORGANIZACIONAL -->
+    <section class="iniciativas">
+        <div class="container">
+            <div class="section-content fade-in-section">
+                <div class="iniciativa-header">
+                    <h3>Para Aprendizado Organizacional</h3>
+                </div>
+                <div class="iniciativas-cards">
+                    <div class="iniciativa-card">
+                        <h4>Centralizar Informações e Facilitar Consulta</h4>
+                        <ul>
+                            <li>Centralizar conhecimentos no Obsidian</li>
+                            <li>Fácil acesso a processos base das diretorias, capacitações e manuais de projetos</li>
+                            <li>Políticas para manter a organização do ambiente</li>
+                        </ul>
+                        <div class="kpis">
+                            <h5>KPI's:</h5>
+                            <div class="kpi-item">50% de mapeamento e documentação dos processos essenciais</div>
+                        </div>
+                    </div>
+                    <div class="iniciativa-card">
+                        <h4>Squad de Capacitações</h4>
+                        <ul>
+                            <li>Grupo de membros que rotacionam a cada 3 meses</li>
+                            <li>Objetivo de estimular as capacitações entre os membros</li>
+                        </ul>
+                        <div class="kpis">
+                            <h5>KPI's:</h5>
+                            <div class="kpi-item">3 de média por área de conhecimento na pesquisa de capacidade técnica
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RESULTADOS -->
+    <section class="resultados">
+        <div class="container">
+            <div class="section-content fade-in-section">
+                <h2 class="section-title">Resultados Esperados</h2>
+
+                <div class="resultados-wrapper">
+                    <div class="resultados-carousel">
+                        <button class="carousel-button" id="prevBtn">❮</button>
+
+                        <div class="carousel-container">
+                            <div class="resultado-card-carousel active">
+                                <h4>Jornadas de Time</h4>
+                                <p>Criar um ambiente de bem-estar e favorável para o desenvolvimento dos membros e
+                                    amadurecimento da organização</p>
+                            </div>
+
+                            <div class="resultado-card-carousel">
+                                <h4>Gestão de Pessoas Presente</h4>
+                                <p>Mensurar o bem-estar dos membros de forma mais constante, potencializando o maior
+                                    tempo de permanência, necessário para uma boa formação no MEJ</p>
+                            </div>
+
+                            <div class="resultado-card-carousel">
+                                <h4>Onboarding Cultural</h4>
+                                <p>Maior alinhamento dos recém efetivados com a cultura, se sentindo mais pertencentes,
+                                    o que reduz o turnover da empresa</p>
+                            </div>
+
+                            <div class="resultado-card-carousel">
+                                <h4>Centralizar Informações</h4>
+                                <p>Facilita o acesso à informação e garante longevidade aos conhecimentos da empresa</p>
+                            </div>
+
+                            <div class="resultado-card-carousel">
+                                <h4>Squad de Capacitações</h4>
+                                <p>Ampliação da capacidade técnica da empresa, permitindo a execução de projetos mais
+                                    ambiciosos</p>
+                            </div>
+                        </div>
+
+                        <button class="carousel-button" id="nextBtn">❯</button>
+                    </div>
+
+                    <div class="carousel-dots">
+                        <span class="dot active" data-index="0"></span>
+                        <span class="dot" data-index="1"></span>
+                        <span class="dot" data-index="2"></span>
+                        <span class="dot" data-index="3"></span>
+                        <span class="dot" data-index="4"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- IMPACTO FINAL -->
+    <section class="impacto-final">
+        <div class="container">
+            <div class="section-content fade-in-section">
+                <h2>Consequências</h2>
+
+                <div class="impacto-card">
+                    <p class="impacto-text">
+                        A partir destas iniciativas, conseguimos construir uma organização <span
+                            class="destaque">estruturada</span>, nos tornando aptos a impactar significativamente na
+                        sociedade.
+                    </p>
+
+                    <div class="impacto-benefits">
+                        <div class="benefit-item">
+                            <div class="benefit-icon">✓</div>
+                            <div class="benefit-text">Promovendo bem-estar</div>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">✓</div>
+                            <div class="benefit-text">Ressignificando a forma que as pessoas se relacionam com a
+                                tecnologia</div>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">✓</div>
+                            <div class="benefit-text">Mostrando que a vida pode ser produtiva e prazerosa com a
+                                gamificação</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="final-cta">
+        <div class="container">
+            <div class="section-content fade-in-section">
+                <h2>Orc'estra Gamificação</h2>
+                <p class="tagline">Projeta aqui, motiva lá!</p>
+
+                <div class="quote">
+                    "Em tudo o que fazemos, acreditamos em ressignificar a vida das pessoas. Acreditamos que a vida pode
+                    ser produtiva e prazerosa"
+                </div>
+
+                <div class="orc-cheer">
+                    ORC'ESTRA! UH!
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // 1. Progress bar
+        const progressBar = document.querySelector('.progress-bar');
+
+        function updateProgressBar() {
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = document.documentElement.scrollTop || window.pageYOffset;
+            const percentage = (scrolled / scrollHeight) * 100;
+            if (progressBar) {
+                progressBar.style.width = percentage + '%';
+            }
+        }
+
+        // 2. Hero parallax effect
+        function updateParallax() {
+            const scrolled = window.pageYOffset;
+
+            const heroContent = document.querySelector('.hero-content');
+            if (heroContent) {
+                heroContent.style.transform = `translateY(${scrolled * 0.5}px)`;
+                heroContent.style.opacity = Math.max(0, 1 - (scrolled / 800));
+            }
+
+            const rope1 = document.querySelector('.rope-1');
+            const rope2 = document.querySelector('.rope-2');
+            if (rope1) rope1.style.transform = `rotate(-5deg) translateY(${scrolled * 0.3}px)`;
+            if (rope2) rope2.style.transform = `rotate(5deg) translateY(${scrolled * 0.3}px)`;
+        }
+
+        // 3. Intersection Observer for fade-in animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px 0px -100px 0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // 4. Full Page Scroll Snap - Versão Simplificada
+        let isScrolling = false;
+        let lastWheelTime = 0;
+        const sections = document.querySelectorAll('section');
+        const SCROLL_COOLDOWN = 1200; // ms entre scrolls
+
+        function scrollToSection(index) {
+            if (index >= 0 && index < sections.length) {
+                isScrolling = true;
+                const targetSection = sections[index];
+                targetSection.scrollIntoView({ behavior: 'smooth' });
+
+                lastWheelTime = Date.now();
+                setTimeout(() => {
+                    isScrolling = false;
+                }, SCROLL_COOLDOWN);
+            }
+        }
+
+        function getCurrentSectionIndex() {
+            const scrollPos = window.scrollY + window.innerHeight / 2;
+
+            for (let i = 0; i < sections.length; i++) {
+                const sectionTop = sections[i].offsetTop;
+                const sectionBottom = sectionTop + sections[i].offsetHeight;
+
+                if (scrollPos >= sectionTop && scrollPos < sectionBottom) {
+                    return i;
+                }
+            }
+            return 0;
+        }
+
+        // Wheel event simplificado
+        document.addEventListener('wheel', (e) => {
+            const now = Date.now();
+
+            // Se ainda está scrollando, ignora
+            if (isScrolling || now - lastWheelTime < SCROLL_COOLDOWN) {
+                e.preventDefault();
+                return;
+            }
+
+            const currentIndex = getCurrentSectionIndex();
+
+            if (e.deltaY > 0) {
+                // Scroll down - vai para próxima
+                if (currentIndex < sections.length - 1) {
+                    scrollToSection(currentIndex + 1);
+                    e.preventDefault();
+                }
+            } else if (e.deltaY < 0) {
+                // Scroll up - vai para anterior
+                if (currentIndex > 0) {
+                    scrollToSection(currentIndex - 1);
+                    e.preventDefault();
+                }
+            }
+        }, { passive: false });
+
+        // 5. Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const fadeInSections = document.querySelectorAll('.fade-in-section');
+            fadeInSections.forEach(section => {
+                observer.observe(section);
+            });
+
+            updateProgressBar();
+            updateParallax();
+        });
+
+        // 6. Event listeners para scroll (com throttle simples)
+        let lastScrollUpdate = 0;
+        window.addEventListener('scroll', () => {
+            const now = Date.now();
+            if (now - lastScrollUpdate > 16) { // ~60fps
+                updateProgressBar();
+                updateParallax();
+                lastScrollUpdate = now;
+            }
+        }, { passive: true });
+
+        window.addEventListener('resize', updateProgressBar, { passive: true });
+
+        window.addEventListener('load', () => {
+            updateProgressBar();
+            updateParallax();
+        });
+
+        // Carrossel de Resultados
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.resultado-card-carousel');
+        const dots = document.querySelectorAll('.dot');
+        const totalSlides = slides.length;
+
+        function showSlide(index) {
+            // Remover classe active de todos
+            slides.forEach(slide => slide.classList.remove('active', 'prev'));
+            dots.forEach(dot => dot.classList.remove('active'));
+
+            // Adicionar classe active ao slide atual
+            slides[index].classList.add('active');
+            dots[index].classList.add('active');
+
+            currentSlide = index;
+        }
+
+        function nextSlide() {
+            showSlide((currentSlide + 1) % totalSlides);
+        }
+
+        function prevSlide() {
+            showSlide((currentSlide - 1 + totalSlides) % totalSlides);
+        }
+
+        // Event listeners dos botões
+        const nextBtn = document.getElementById('nextBtn');
+        const prevBtn = document.getElementById('prevBtn');
+
+        if (nextBtn) nextBtn.addEventListener('click', nextSlide);
+        if (prevBtn) prevBtn.addEventListener('click', prevSlide);
+
+        // Event listeners dos dots
+        dots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                showSlide(parseInt(dot.dataset.index));
+            });
+        });
+
+        // Logo link to top
+        const headerLogoLink = document.querySelector('.header-logo-link');
+        if (headerLogoLink) {
+            headerLogoLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+    </script>
+</body>
+
+</html>
