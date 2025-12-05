@@ -46,20 +46,21 @@
         /* LOGO HEADER */
         .header-logo {
             position: fixed;
-            top: 1.5rem;
-            left: 1.5rem;
+            top: 2.5rem;
+            left: 5rem;
             width: 80px;
             height: auto;
             z-index: 1000;
             opacity: 0.9;
             transition: all 0.3s ease;
-            filter: brightness(0);
+            filter: brightness(1);
+            transform: scale(3);
         }
 
         .header-logo:hover {
             opacity: 1;
             transform: scale(1.05);
-            filter: brightness(0.5) drop-shadow(0 2px 5px rgba(46, 182, 0, 0.1));
+            filter: brightness(1) drop-shadow(0 2px 5px rgba(46, 182, 0, 0.1));
         }
 
         .header-logo-link {
@@ -102,8 +103,8 @@
         }
 
         .institucional-logo {
-            width: 120px;
-            height: 120px;
+            width: 360px;
+            height: 360px;
             margin-top: -2rem;
             opacity: 0;
             animation: fadeInDown 1s ease-out 0.1s forwards;
@@ -848,14 +849,9 @@
     <section class="quem-somos">
         <div class="container">
             <div class="section-content fade-in-section">
-                <div class="logo-container">
-                    <h2 class="logo-title">Orc'estra Gamificação</h2>
-                </div>
 
                 <div class="missao-box">
-                    <p class="missao-highlight">
-                        Prazer, nós somos a Orc'estra Gamificação
-                    </p>
+
                     <p>
                         Eles acreditavam que o seu propósito é criar experiências, empoderar pessoas e mudar a forma de
                         enxergar problemas, potencializando, assim, o bem-estar na sociedade.
@@ -864,6 +860,11 @@
                         Por meio de soluções Gamificadas.
                     </p>
                 </div>
+                <br><br>
+                <div class="logo-container">
+                    <h2 class="logo-title">Prazer, nós somos a <br>Orc'estra Gamificação</h2>
+                </div>
+                            
             </div>
         </div>
     </section>
@@ -998,7 +999,6 @@
                         <div class="kpis">
                             <h5>KPI's:</h5>
                             <div class="kpi-item">75% de permanência maior ou igual a 12 meses</div>
-                            <div class="kpi-item">80% de aprovações alinhadas à cultura no PR</div>
                         </div>
                     </div>
                     <div class="iniciativa-card">
@@ -1006,7 +1006,12 @@
                         <ul>
                             <li>Trazer elementos da cultura da Orc'estra e do MEJ durante o Processo Recrutador</li>
                             <li>Fazer com que os candidatos se sintam parte da empresa ainda na etapa de seleção</li>
+                            <br><br>
                         </ul>
+                        <div class="kpis">
+                            <h5>KPI's:</h5>
+                            <div class="kpi-item">80% de aprovações alinhadas à cultura no PR</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1038,6 +1043,7 @@
                         <ul>
                             <li>Grupo de membros que rotacionam a cada 3 meses</li>
                             <li>Objetivo de estimular as capacitações entre os membros</li>
+                            <br><br>
                         </ul>
                         <div class="kpis">
                             <h5>KPI's:</h5>
@@ -1150,10 +1156,6 @@
                 <div class="quote">
                     "Em tudo o que fazemos, acreditamos em ressignificar a vida das pessoas. Acreditamos que a vida pode
                     ser produtiva e prazerosa"
-                </div>
-
-                <div class="orc-cheer">
-                    ORC'ESTRA! UH!
                 </div>
             </div>
         </div>
